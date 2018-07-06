@@ -1,0 +1,19 @@
+balance=int(input('debt:'))
+annualInterestRate=float(input('interest:'))
+
+mr=annualInterestRate/12         #monthly interest rate
+rb=balance                       #debt at the end of the month (remaining balance)
+l=balance/12                     #low end for fixed payment search
+h=(balance*(1+mr)**12)/12        #high end for fixed payment search
+while rb>0:
+    fp=(l+h)/2                   #fixed payment
+    for i in range(12):
+        ub=rb-fp
+        rb=ub+mr*ub
+    if rb<-0.12:
+        h=fp
+        rb=balance
+    elif rb>0:
+        l=fp
+        rb=balance
+print('Lowest payment:', round(fp, 2))
